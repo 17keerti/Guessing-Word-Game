@@ -1,0 +1,49 @@
+body {
+  background-color: azure;
+}
+
+
+h1 {
+    width: 100%; 
+    margin: auto;
+    padding-top: 5%;
+    padding-bottom: 10px;
+    font-size: 48px;
+    font-style: italic ;
+}
+
+ .main-container {
+   width: 80%;
+  text-align: center;
+  margin: auto;
+}
+
+#guess {
+  margin: auto;
+  font-size: 36px;
+  margin-bottom: 45px;
+}
+
+.size {
+  font-size: 28px;
+  text-align: left;
+  padding-left: 43%;
+  margin-bottom: 30px;
+}
+
+.sizeNumber {
+  font-size: 28px;
+  text-align: left;
+  margin-bottom: 30px;
+  padding-right: 30px;
+}
+
+.image{
+  /* height: 400px; */
+  width: 100%;
+  margin-bottom: 5px;
+  background-image: url("../images/headerimage.jpeg");
+  background-size: auto;
+  aspect-ratio: 5/1;
+
+}
