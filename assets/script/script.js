@@ -9,6 +9,7 @@ var match = false;
 var questionCompleted = false;
 var totalWin = localStorage.getItem("totalWin");
 var totalLoose = localStorage.getItem("totalLoose");
+var matchingInputChar = '';
 
 if(totalWin == null){
   totalWin = 0 ;
@@ -28,7 +29,8 @@ function getRandomWord(wordList) {
 localStorage.setItem("totalWin", totalWin);
 
 startbutton.addEventListener("click", function () {
-  var timeLeft = 10;
+  matchingInputChar = '';
+  var timeLeft = 30;
   clearInterval(timerInterval);
   timer.textContent = timeLeft;
   timerInterval = setInterval(function () {
@@ -47,11 +49,11 @@ startbutton.addEventListener("click", function () {
 });
 
 
-var combinedKeypress = '';
+
 document.body.addEventListener('keyup', function (event) {
   if (isCharPresent(selectedWord, event.key)
-    && !isCharPresent(combinedKeypress, event.key)) {
-    combinedKeypress = combinedKeypress + event.key;
+    && !isCharPresent(matchingInputChar, event.key)) {
+    matchingInputChar = matchingInputChar + event.key;
   }
   guess.textContent = displayQuestion();
 
@@ -70,7 +72,7 @@ function displayQuestion() {
   match = true;
   for (var i = 0; i < selectedWord.length; i++) {
     var a = selectedWord[i];
-    if (!isCharPresent(combinedKeypress, a)) {
+    if (!isCharPresent(matchingInputChar, a)) {
       match = false;
       final = final + " " + '_';
     } else {
