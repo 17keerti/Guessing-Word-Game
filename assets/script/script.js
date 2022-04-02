@@ -7,17 +7,28 @@ var selectedWord = '';
 var wordPool = ["candy", "pride", "react", "paper", "digit", "repay", "strike"];
 var match = false;
 var questionCompleted = false;
-var totalWin = 0;
-var totalLoose = 0;
+var totalWin = localStorage.getItem("totalWin");
+var totalLoose = localStorage.getItem("totalLoose");
 
+if(totalWin == null){
+  totalWin = 0 ;
+}
+wincount.textContent = totalWin;
+
+if(totalLoose == null){
+  totalLoose = 0 ;
+}
+loosecount.textContent = totalLoose;
 
 function getRandomWord(wordList) {
   var rnum = Math.floor(Math.random() * wordList.length);
   return wordList[rnum];
 }
 
+localStorage.setItem("totalWin", totalWin);
+
 startbutton.addEventListener("click", function () {
-  var timeLeft = 30;
+  var timeLeft = 10;
   clearInterval(timerInterval);
   timer.textContent = timeLeft;
   timerInterval = setInterval(function () {
@@ -28,11 +39,13 @@ startbutton.addEventListener("click", function () {
       totalLoose++;
       loosecount.textContent = totalLoose;
       questionCompleted = true;
+      localStorage.setItem("totalLoose", totalLoose);
     }
   }, 1000);
   selectedWord = getRandomWord(wordPool);
   guess.textContent = displayQuestion();
 });
+
 
 var combinedKeypress = '';
 document.body.addEventListener('keyup', function (event) {
@@ -47,6 +60,7 @@ document.body.addEventListener('keyup', function (event) {
     totalWin++;
     wincount.textContent = totalWin;
     clearInterval(timerInterval);
+    localStorage.setItem("totalWin", totalWin);
   }
 });
 
