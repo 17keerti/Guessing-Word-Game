@@ -3,8 +3,13 @@ var startbutton = document.querySelector("#startbutton");
 var timer = document.querySelector("#timer");
 var guess = document.querySelector("#guess");
 var timerInterval;
-var selectedWord;
+var selectedWord = '';
 var wordPool = ["candy", "pride", "react", "paper", "digit", "repay", "strike"];
+var match = false;
+var questionCompleted = false;
+var totalWin = 0;
+var totalLoose = 0;
+
 
 function getRandomWord(wordList) {
   var rnum = Math.floor(Math.random() * wordList.length);
@@ -12,8 +17,7 @@ function getRandomWord(wordList) {
 }
 
 startbutton.addEventListener("click", function () {
-  // console.log("Start button is pressed");
-  var timeLeft = 60;
+  var timeLeft = 30;
   clearInterval(timerInterval);
   timer.textContent = timeLeft;
   timerInterval = setInterval(function () {
@@ -21,25 +25,61 @@ startbutton.addEventListener("click", function () {
     timer.textContent = timeLeft;
     if (timeLeft === 0) {
       clearInterval(timerInterval);
-      // define a text which shows you lost for 1 second
-      // and then becomes invisible;
+      totalLoose++;
+      loosecount.textContent = totalLoose;
+      questionCompleted = true;
     }
   }, 1000);
   selectedWord = getRandomWord(wordPool);
-  guess.textContent = selectedWord;
-
+  guess.textContent = displayQuestion();
 });
 
-// Task : When I click start button a random word should be displayed
-// From a pool of my question words.
-// Define an array of question words and then select a random element
-// from that and display that word/element from array in guess 
+var combinedKeypress = '';
+document.body.addEventListener('keyup', function (event) {
+  if (isCharPresent(selectedWord, event.key)
+    && !isCharPresent(combinedKeypress, event.key)) {
+    combinedKeypress = combinedKeypress + event.key;
+  }
+  guess.textContent = displayQuestion();
+
+  if (match == true && questionCompleted == false) {
+    questionCompleted = true;
+    totalWin++;
+    wincount.textContent = totalWin;
+    clearInterval(timerInterval);
+  }
+});
+
+
+function displayQuestion() {
+  var final = "";
+  match = true;
+  for (var i = 0; i < selectedWord.length; i++) {
+    var a = selectedWord[i];
+    if (!isCharPresent(combinedKeypress, a)) {
+      match = false;
+      final = final + " " + '_';
+    } else {
+      final = final + " " + a;
+    }
+  }
+  return final;
+}
+
+
+function isCharPresent(str, char) {
+  for (var i = 0; i < str.length; i++) {
+    if (char === str[i]) {
+      return true;
+    }
+  }
+  return false;
+}
 
 
 
-
-
-
-// result = getRandomWord(words);
-
-// console.log(result);
+// Notes: 
+// 1. Add a footer notification for wrong key pressed event which 
+// disappers after some time.
+// 2. Define a text which shows you lost for 1 second
+// and then becomes invisible;
