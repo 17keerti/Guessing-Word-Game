@@ -18,24 +18,11 @@ h1 {
   margin: auto;
 }
 
-#guess {
+#guess{
   margin: auto;
   font-size: 36px;
   margin-bottom: 45px;
-}
 
-.size {
-  font-size: 28px;
-  text-align: left;
-  padding-left: 43%;
-  margin-bottom: 30px;
-}
-
-.sizeNumber {
-  font-size: 28px;
-  text-align: left;
-  margin-bottom: 30px;
-  padding-right: 30px;
 }
 
 .image{
