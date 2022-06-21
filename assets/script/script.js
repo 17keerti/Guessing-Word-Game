@@ -1,23 +1,22 @@
-
 var startbutton = document.querySelector("#startbutton");
 var timer = document.querySelector("#timer");
 var guess = document.querySelector("#guess");
 var timerInterval;
-var selectedWord = '';
+var selectedWord = "";
 var wordPool = ["candy", "pride", "react", "paper", "digit", "repay", "strike"];
 var match = false;
 var questionCompleted = false;
 var totalWin = localStorage.getItem("totalWin");
 var totalLoose = localStorage.getItem("totalLoose");
-var matchingInputChar = '';
+var matchingInputChar = "";
 
-if(totalWin == null){
-  totalWin = 0 ;
+if (totalWin == null) {
+  totalWin = 0;
 }
 wincount.textContent = totalWin;
 
-if(totalLoose == null){
-  totalLoose = 0 ;
+if (totalLoose == null) {
+  totalLoose = 0;
 }
 loosecount.textContent = totalLoose;
 
@@ -29,7 +28,7 @@ function getRandomWord(wordList) {
 localStorage.setItem("totalWin", totalWin);
 
 startbutton.addEventListener("click", function () {
-  matchingInputChar = '';
+  matchingInputChar = "";
   var timeLeft = 30;
   clearInterval(timerInterval);
   timer.textContent = timeLeft;
@@ -48,16 +47,16 @@ startbutton.addEventListener("click", function () {
   guess.textContent = displayQuestion();
 });
 
-
-
-document.body.addEventListener('keyup', function (event) {
-  if (isCharPresent(selectedWord, event.key)
-    && !isCharPresent(matchingInputChar, event.key)) {
+document.body.addEventListener("keyup", function (event) {
+  if (
+    isCharPresent(selectedWord, event.key) &&
+    !isCharPresent(matchingInputChar, event.key)
+  ) {
     matchingInputChar = matchingInputChar + event.key;
   }
   guess.textContent = displayQuestion();
 
-  if (match == true && questionCompleted == false) {
+  if (match == true) {
     questionCompleted = true;
     totalWin++;
     wincount.textContent = totalWin;
@@ -66,7 +65,6 @@ document.body.addEventListener('keyup', function (event) {
   }
 });
 
-
 function displayQuestion() {
   var final = "";
   match = true;
@@ -74,14 +72,13 @@ function displayQuestion() {
     var a = selectedWord[i];
     if (!isCharPresent(matchingInputChar, a)) {
       match = false;
-      final = final + " " + '_';
+      final = final + " " + "_";
     } else {
       final = final + " " + a;
     }
   }
   return final;
 }
-
 
 function isCharPresent(str, char) {
   for (var i = 0; i < str.length; i++) {
@@ -91,11 +88,3 @@ function isCharPresent(str, char) {
   }
   return false;
 }
-
-
-
-// Notes: 
-// 1. Add a footer notification for wrong key pressed event which 
-// disappers after some time.
-// 2. Define a text which shows you lost for 1 second
-// and then becomes invisible;
